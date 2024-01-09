@@ -104,6 +104,7 @@ position: relative!important;
                         <li><a href="{{ route('home') }}"><i class="ti-control-record text-success"></i> {{ __('pages.home') }}</a></li>
                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('setting.upsert') }}"><i class="ti-control-record text-success"></i> الإعدادات الرئيسيه</a></li>@endif
                          @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('service') }}"><i class="ti-control-record text-success"></i> خدماتنا</a></li>@endif
+                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('user.request') }}"><i class="ti-control-record text-success"></i> طلبات المستخدمين</a></li>@endif
                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('user') }}"><i class="ti-control-record text-success"></i> {{ __('pages.users') }}</a></li>@endif
                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('region') }}"><i class="ti-control-record text-success"></i> {{ __('pages.regions') }}</a></li>@endif
                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('city') }}"><i class="ti-control-record text-success"></i> {{ __('pages.cities') }}</a></li>@endif

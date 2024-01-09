@@ -83,8 +83,10 @@
         <div class="container py-5"> 
             <div class="section-title text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 600px;">
                 <h1 class="fw-bold text-primary text-uppercase"> خدماتنا </h1>
+                <br>
                 <h2>في قائمة الخدمات التي نقدمها في مجال التسويق العقاري والخدمات الإعلانية والبرمجة</h2>
             </div>
+            
             <div class="row g-5 mb-5">
                 <div class="col-lg-12">
                     <div class="" data-wow-delay="0.1s">

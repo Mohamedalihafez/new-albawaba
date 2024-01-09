@@ -26,6 +26,16 @@ class UserController extends Controller
             abort(404);
     }
 
+    public function request(Request $request)
+    {
+        if(Auth::user()->isSuperAdmin())
+            return view('admin.pages.user.request',[
+                'users' => User::filter($request->all())->where('request_id',1)->paginate(10),
+            ]);
+        else 
+            abort(404);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -60,6 +70,11 @@ class UserController extends Controller
      public function status(Request $request)
     {
         return User::statusUpdate($request);
+    }
+
+    public function ideas(Request $request)
+    {
+        return User::ideasUpdate($request);
     }
 
     public function modify(UserRequest $request)

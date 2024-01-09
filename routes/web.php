@@ -55,8 +55,11 @@ Route::group(['prefix' => 'home' , 'middleware' => 'web'],function () {
 
 });
 
-Route::group(['prefix' => 'ideas' , 'middleware' => 'web'],function () {
+Route::group(['prefix' => 'ideas' , 'middleware' => 'auth'],function () {
     Route::get('/', [IdeaController::class, 'index'])->name('ideas');
+    Route::post('/request', [IdeaController::class, 'request'])->name('ideas.request');
+    Route::get('/add',[IdeaController::class,'add'])->name('ideas.add');
+
 });
 
 Route::group(['prefix' => 'advertisement' , 'middleware' => 'auth'],function () {

@@ -1,0 +1,265 @@
+
+@extends('admin.layout.master')
+@section('css')
+@endsection
+<style>
+    .round {
+    line-height: 48px !important;
+    color: #fff;
+    width: 50px;
+    height: 24px !important ;
+    }
+</style>
+@section('content')
+    <div class="main-wrapper">
+        <!-- Page Wrapper -->
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+            
+                <!-- Page Header -->
+                <div class="page-header card-header">
+                    <div class="row">
+                        <div class="col-sm-7 col-auto">
+                            <h3 class="page-title">طلبات {{ __('pages.users') }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Header -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-header">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <form class="form" action="{{ route('user.filter') }}" method="get">
+                                        <div class="form-group d-flex align-items-center ">
+                                            <input type="search" placeholder="{{ __('pages.search_by_name') }}" name="name" class="form-control d-block search_input w-50" value="{{request()->input('name')}}">
+                                            <button class="btn btn-primary mx-2 btn-search">{{ __('pages.search') }}</button>
+                                        </div>
+                                    </form>
+                                    <table id="example" class=" display  table table-hover table-center mb-0"  filter="{{ route('user.filter') }}">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>{{ __('pages.name') }}</th>
+                                                <th>{{ __('pages.mobile') }}</th>
+                                                <th>{{ __('pages.email') }}</th>
+                                                <th>الموافقه علي الطلب</th>
+                                                <th>تعليق المستخدم</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($users as $user)
+                                            <tr class="record">
+                                                <td>{{ $user->id }}#</td>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->phone }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                <td> 
+                                                    <label class="switch switch_user_status" style="width: 50px; height: 25px;">
+                                                        <input type="checkbox" class="idea_status" @if($user->ideas_id) value="1" @else value="0" @endif user_id="{{ $user->id }}" name="ideas_id" style="width: 25px; height: 25px;">
+                                                        <span class="slider round" style="border-radius: 25px;"></span>
+                                                    </label>
+                                                </td>
+                                                <td> <label class="switch switch_user_status" style="width: 50px; height: 25px;">
+                                                        <input type="checkbox" class="user_status" @if($user->suspend) value="1" @else value="0" @endif user_id="{{ $user->id }}" name="user_suspend" style="width: 25px; height: 25px;">
+                                                        <span class="slider round" style="border-radius: 25px;"></span>
+                                                    </label>
+                                                </td>
+                                              
+                                            </tr>
+                                            @endforeach
+                                        </tbody>  
+                                    </table>
+                                    <div id="edit_partner" class="modal fade">   
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="modelHeading">{{ __('pages.edit_user_info') }}</h4>
+                                                    <span class="button" data-dismiss="modal" aria-label="Close">   <i class="ti-close"></i> </span>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" enctype="multipart/form-data" action="{{ route('user.modify') }}" class="ajax-form" swalOnSuccess="{{ __('pages.sucessdata') }}" title="{{ __('pages.opps') }}" swalOnFail="{{ __('pages.wrongdata') }}" redirect="{{ route('user') }}">
+                                                        @csrf
+                                                        <input type="hidden" name="id" id="id">
+                                                        <div class="form-group">
+                                                            <label for="name" class="col-sm-2 mb-2 control-label">{{ __('pages.name') }}</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text" class="form-control" id="full_name" name="name" placeholder="Enter Name" value="" maxlength="50" required="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label class="mb-2">{{ __('pages.Phone') }}</label>
+                                                            <div class="col-md-8">
+                                                                <div class="form-group">
+                                                                    <input placeholder="{{ __('pages.Phone') }}" type="phone" id="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="">
+                                                                    <p class="error error_phone"></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <x-country-phone-code></x-country-phone-code>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 mb-2 control-label">{{ __('pages.email') }}</label>
+                                                            <div class="col-sm-12">
+                                                                <input placeholder="{{ __('pages.email') }}" type="phone" id="email" class="form-control @error('email') is-invalid @enderror" name="email" value="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-2 mb-2 control-label">{{ __('pages.role') }}</label>
+                                                            <div class="col-sm-12">
+                                                                <select placeholder="{{ __('pages.role') }}" id="role_id" type="phone" class="form-control @error('role') is-invalid @enderror" name="role_id">
+                                                                    <option class="form-control" value="2">{{ __('pages.owner') }}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div id="image">
+                                                        </div>
+                                                        <div class="col-sm-offset-2 col-sm-12 text-center">
+                                                            <button type="submit" class="btn btn-primary" id="saveBtn" value="create">{{ __('pages.save') }}
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div>
+
+                                    <nav aria-label="Page navigation example" class="mt-2">
+                                        <ul class="pagination">
+                                            @for($i = 1; $i <= $users->lastPage(); $i++)
+                                                <li class="page-item">
+                                                    <a class="page-link" href="?page={{$i}}">{{$i}}</a>
+                                                </li>
+                                            @endfor
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>			
+                </div>
+            </div>
+        <!-- /Page Wrapper -->
+    </div>
+@endsection
+
+
+@section('js')
+<script>
+$('.copyval').on('click',function(e){
+   let x=$(this).attr('value');
+   e.preventDefault();
+   document.addEventListener('copy', function(e) {
+      e.clipboardData.setData('text/plain', x);
+      e.preventDefault();
+   }, true);
+   document.execCommand('copy');  
+})
+ $(".user_status").on("change", function(){   
+        if ($(this).is(":checked"))
+        {
+            $(this).val(1);
+        }   
+        else {
+            $(this).val(0);
+        }
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
+            },
+            url: '{{ route("user.status") }}',
+            method: 'post',
+            data: {id: $(this).attr("user_id"), suspend: $(this).val()},
+            success: () => {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    icon: 'success',
+                    title: "{{ __('pages.sucessdata') }}"
+                });
+            }
+        });
+    });
+        for(let status of $('.user_status')){
+        if (status.value == 0)
+        {
+            status.checked = false;
+        } 
+        else{
+            status.checked = true;
+        }
+}
+
+$(".idea_status").on("change", function(){   
+        if ($(this).is(":checked"))
+        {
+            $(this).val(1);
+        }   
+        else {
+            $(this).val(0);
+        }
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
+            },
+            url: '{{ route("user.idea") }}',
+            method: 'post',
+            data: {id: $(this).attr("user_id"), ideas_id: $(this).val()},
+            success: () => {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    icon: 'success',
+                    title: "{{ __('pages.sucessdata') }}"
+                });
+            }
+        });
+    });
+        for(let status of $('.idea_status')){
+        if (status.value == 0)
+        {
+            status.checked = false;
+        } 
+        else{
+            status.checked = true;
+        }
+}
+    
+function edit_partner(el) {
+    var link = $(el) //refer `a` tag which is clicked
+    var modal = $("#edit_partner") //your modal
+    var full_name = link.data('full_name')
+    var id = link.data('id')
+    var email = link.data('email')
+    var role = link.data('role')
+    var phone = link.data('phone')
+    var image = link.data('image')
+
+    modal.find('#full_name').val(full_name);
+    modal.find('#id').val(id);
+    modal.find('#email').val(email);
+    modal.find('#phone').val(phone);
+    modal.find('#role_id').val(role);
+
+    $("#image").children().remove();
+    $("#image").append(`
+        <div class="form-group">
+            <input type="file" class="dropify" src=""  data-default-file="${image}" name="picture"/>
+            <p class="error error_picture"></p>
+        </div>
+    `);
+    $('.dropify').dropify();
+}
+
+</script>
+
+@endsection

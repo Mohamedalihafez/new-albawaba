@@ -21,6 +21,17 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\AdvertisementController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\SocialMediaController;
+use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\Portfolio_experience1Controller;
+use App\Http\Controllers\Admin\Portfolio_experience2Controller;
+use App\Http\Controllers\Admin\Portfolio_experience3Controller;
+use App\Http\Controllers\Admin\ReferencesController;
+use App\Http\Controllers\Admin\RequestController;
+use App\Http\Controllers\Admin\SkillController;
+use App\Http\Controllers\Auth\Dashboard\EducationController;
+use App\Http\Controllers\Auth\Dashboard\Work_experienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +51,8 @@ Route::group(['prefix' => '/'],function(){
 
 Route::group(['prefix' => 'user'],function(){
     Route::get('/', [UserController::class,"index"])->name('user');
+    Route::get('/requests', [UserController::class,"request"])->name('user.request');
+    Route::post('/ideas/update',[UserController::class,'ideas'])->name('user.idea');
     Route::post('/users', [UserController::class, 'users'])->name('users');
     Route::post('/usersTenant', [UserController::class, 'usersTenant'])->name('usersTenant');
     Route::post('api/fetch-minor', [UserController::class, 'fetchMainor'])->name('user.fetch');
@@ -47,7 +60,7 @@ Route::group(['prefix' => 'user'],function(){
     Route::get('/filter',[UserController::class,'filter'])->name('user.filter');
     Route::post('/modify',[UserController::class,'modify'])->name('user.modify');
     Route::post('/status/update',[UserController::class,'status'])->name('user.status');
-    Route::post('/delete/{user}',[UserController::class,'destroy'])->name('user.delete');
+    Route::post('/delete/{user}',[UserController::class,'destroy'])->name('ideas.delete');
 });
 
 Route::group(['prefix' => 'compound'],function(){
@@ -230,3 +243,104 @@ Route::group(['prefix' => 'category'],function(){
     Route::post('/modify',[CategoryController::class,'modify'])->name('category.modify');
     Route::post('/delete/{category}',[CategoryController::class,'destroy'])->name('category.delete');
 });
+
+
+//slider 
+Route::group(['prefix' => 'slider'],function(){
+    Route::get('/', [SliderController::class, 'create'])->name('create_slider');
+    Route::post('/store_slider', [SliderController::class, 'store'])->name('store_slider');
+    Route::get('/manage_slider', [SliderController::class, 'index'])->name('manage_slider');
+    Route::get('/edit_slider/{id}', [SliderController::class, 'edit'])->name('edit_slider');
+    Route::post('/update_slider/{id}', [SliderController::class, 'update'])->name('update_slider');
+    Route::get('/destroy_slider/{id}', [SliderController::class, 'destroy'])->name('destroy_slider');
+});
+
+Route::group(['prefix' => 'soclaiMedia'],function(){
+    Route::get('/create', [SocialMediaController::class, 'create'])->name('crate_socialMedia');
+    Route::post('/store', [SocialMediaController::class, 'store'])->name('store_socialMedia');
+    Route::get('/show', [SocialMediaController::class, 'show'])->name('show_socialMedia');
+    Route::get('/edit/{id}', [SocialMediaController::class, 'edit'])->name('edit_socialMedia');
+    Route::put('/update/{id}', [SocialMediaController::class, 'update'])->name('update_socialMedia');
+    Route::get('/destroy/{id}', [SocialMediaController::class, 'destroy'])->name('destroy_socialMedia');
+});
+//About 
+Route::group(['prefix' => 'about'],function(){
+    Route::get('/crate_about', [AboutController::class, 'create'])->name('crate_about');
+    Route::post('/store_about', [AboutController::class, 'store'])->name('store_about');
+    Route::get('/manage_about', [AboutController::class, 'index'])->name('manage_about');
+    Route::get('/edit_about/{id}', [AboutController::class, 'edit'])->name('edit_about');
+    Route::get('/update_about/{id}', [AboutController::class, 'update'])->name('update_about');
+    Route::get('/destroy_about/{id}', [AboutController::class, 'destroy'])->name('destroy_about');
+});
+
+Route::group(['prefix' => 'skill'],function(){
+    Route::get('/crate_skill', [SkillController::class, 'create'])->name('crate_skill');
+    Route::post('/store_skill', [SkillController::class, 'store'])->name('store_skill');
+    Route::get('/manage_skill', [SkillController::class, 'index'])->name('manage_skill');
+    Route::get('/edit_skill/{id}', [SkillController::class, 'edit'])->name('edit_skill');
+    Route::put('/update_skill/{id}', [SkillController::class,'update'])->name('update_skill');
+    Route::get('/destroy_skill/{id}', [SkillController::class, 'destroy'])->name('destroy_skill');
+});
+Route::group(['prefix' => '/portofolio1'],function(){
+    Route::get('/crate_port_exp1', [Portfolio_experience1Controller::class, 'create'])->name('crate_port_exp1');
+    Route::post('/store_port_exp1', [Portfolio_experience1Controller::class, 'store'])->name('store_port_exp1');
+    Route::get('/manage_port_exp1', [Portfolio_experience1Controller::class, 'index'])->name('manage_port_exp1');
+    Route::get('/edit_port_exp1/{id}', [Portfolio_experience1Controller::class, 'edit'])->name('edit_port_exp1');
+    Route::put('/update_port_exp1/{id}', [Portfolio_experience1Controller::class, 'update'])->name('update_port_exp1');
+    Route::get('/destroy_port_exp1/{id}',[Portfolio_experience1Controller::class, 'destroy'])->name('destroy_port_exp1');
+});
+
+
+Route::group(['prefix' => '/portofolio2'],function(){
+    Route::get('crate_port_exp2', [Portfolio_experience2Controller::class, 'create'])->name('crate_port_exp2');
+    Route::post('store_port_exp2', [Portfolio_experience2Controller::class, 'store'])->name('store_port_exp2');
+    Route::get('manage_port_exp2', [Portfolio_experience2Controller::class, 'index'])->name('manage_port_exp2');
+    Route::get('edit_port_exp2/{id}', [Portfolio_experience2Controller::class, 'edit'])->name('edit_port_exp2');
+    Route::put('update_port_exp2/{id}', [Portfolio_experience2Controller::class, 'update'])->name('update_port_exp2');
+    Route::get('destroy_port_exp2/{id}',[Portfolio_experience2Controller::class, 'destroy'])->name('destroy_port_exp2');
+});
+
+Route::group(['prefix' => '/portofolio2'],function(){
+    Route::get('crate_port_exp3', [Portfolio_experience3Controller::class, 'create'])->name('crate_port_exp3');
+    Route::post('store_port_exp3', [Portfolio_experience3Controller::class, 'store'])->name('store_port_exp3');
+    Route::get('manage_port_exp3', [Portfolio_experience3Controller::class, 'index'])->name('manage_port_exp3');
+    Route::get('edit_port_exp3/{id}', [Portfolio_experience3Controller::class, 'edit'])->name('edit_port_exp3');
+    Route::put('update_port_exp3/{id}', [Portfolio_experience3Controller::class, 'update'])->name('update_port_exp3');
+    Route::get('destroy_port_exp3/{id}',[Portfolio_experience3Controller::class, 'destroy'])->name('destroy_port_exp3');
+});
+Route::group(['prefix' => '/portofolio3'],function(){
+    Route::get('create_work_exper',[Work_experienceController::class, 'create'])->name('create_work_exper');
+    Route::post('store_work_exper',[Work_experienceController::class, 'store'])->name('store_work_exper');
+    Route::get('manage_work_exper',[Work_experienceController::class, 'index'])->name('manage_work_exper');
+    Route::get('edit_work_exper/{id}',[Work_experienceController::class, 'edit'])->name('edit_work_exper');
+    Route::put('update_work_exper/{id}',[Work_experienceController::class, 'update'])->name('update_work_exper');
+    Route::get('destroy_work_exper/{id}',[Work_experienceController::class, 'destroy'])->name('destroy_work_exper');
+});
+
+Route::group(['prefix' => '/education'],function(){
+    Route::get('create_education',[EducationController::class, 'create'])->name('create_education');
+    Route::post('store_education',[EducationController::class, 'store'])->name('store_education');
+    Route::get('manage_education',[EducationController::class, 'index'])->name('manage_education');
+    Route::get('edit_education/{id}',[EducationController::class, 'edit'])->name('edit_education');
+    Route::put('update_education/{id}',[EducationController::class, 'update'])->name('update_education');
+    Route::get('destroy_education/{id}',[EducationController::class, 'destroy'])->name('destroy_education');
+});
+
+Route::group(['prefix' => '/reference'],function(){
+    Route::get('create_reference',[ReferencesController::class, 'create'])->name('create_reference');
+    Route::post('store_reference',[ReferencesController::class, 'store'])->name('store_reference');
+    Route::get('manage_reference',[ReferencesController::class, 'index'])->name('manage_reference');
+    Route::get('edit_reference/{id}',[ReferencesController::class, 'edit'])->name('edit_reference');
+    Route::put('update_reference/{id}',[ReferencesController::class, 'update'])->name('update_reference');
+    Route::get('destroy_reference/{id}',[ReferencesController::class, 'destroy'])->name('destroy_reference');
+});
+
+Route::group(['prefix' => '/request'],function(){
+    Route::post('store_contact',[RequestController::class, 'store'])->name('store_contact');
+    Route::get('manage_contact',[RequestController::class, 'index'])->name('manage_contact');
+    Route::get('edit_contact/{id}',[RequestController::class, 'edit'])->name('edit_contact');
+    Route::put('update_contact/{id}',[RequestController::class, 'update'])->name('update_contact');
+    Route::get('destroy_contact/{id}',[RequestController::class, 'destroy'])->name('destroy_contact');
+});
+
+
