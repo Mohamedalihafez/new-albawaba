@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->text('full_name', 50);
-            $table->text('experience', 70);
-            $table->string('image');
-            $table->string('slider');
-            $table->string('cv');
+            $table->text('experience', 70)->nullable();
+            $table->string('image')->nullable();
+            $table->string('slider')->nullable();
+            $table->string('cv')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->timestamps();
         });

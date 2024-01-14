@@ -1,58 +1,46 @@
 @extends('admin.layout.master')
-@section('title')
-| manage skill
-@endsection
-@push('css')
-<!-- DataTables -->
 
-  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-@endpush
-@section('Content_header')
- <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Manage Skill</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">Manage Skill</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-@endsection
+
+
 @section('content')
  <!-- /.card -->
-
+ <div class="main-wrapper">
+  <!-- Page Wrapper -->
+  
+  <div class="page-wrapper">
+      <div class="content container-fluid">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"></h3>
-              </div>
+                <div class="row">
+                  <div class="col-sm-7 col-auto">
+                    <h3 class="page-title">مهاراتك  </h3>
+                </div>
+                  @if(count($skill) == 0)
+                    <div class="col-sm-5 col">
+                        <a href="{{ route('create_socialMedia') }}" class="btn btn-primary float-end ">  <i class="ti-plus"></i> قم بانشاء مهاراتك  </a>
+                    </div>
+                  @endif
+                </div>
+            </div>
+
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example1" class="table table-responsive table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Serial</th>
-                    <th>Skill_1</th>
-                    <th>Skill_1_Percentage</th>
-                    <th>Skill_2</th>
-                    <th>Skill_2_Percentage</th>
-                    <th>Skill_3</th>
-                    <th>Skill_3_Percentage</th>
-                    <th>Skill_4</th>
-                    <th>Skill_4_Percentage</th>
-                    <th>Skill_5</th>
-                    <th>Skill_5_Percentage</th>
-                    <th>Skill_6</th>
-                    <th>Skill_6_Percentage</th>
-                    <th>Create Date</th>
-                    <th>Update Date</th>
+                    <th>#</th>
+                    <th>مهاره 1</th>
+                    <th>نسبه مهاره 1</th>
+                    <th>مهاره 2</th>
+                    <th>نسبه مهاره 2</th>
+                    <th>مهاره 3</th>
+                    <th>نسبه مهاره 3</th>
+                    <th>مهاره 4</th>
+                    <th>نسبه مهاره 4</th>
+                    <th>مهاره 5</th>
+                    <th>نسبه مهاره 5</th>
+                    <th>مهاره 6</th>
+                    <th>نسبه مهاره 6</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -73,11 +61,10 @@
                     <td>{{$show->skill_5_percentage}}</td>
                     <td>{{$show->skill_6}}</td>
                     <td>{{$show->skill_6_percentage}}</td>
-                    <td>{{$show->created_at->format('Y-m-d h:i:s')}}</td>
-                    <th>{{$show->updated_at->format('Y-m-d h:i:s')}}</th>
                     <th> 
+                      <a href="{{ route('edit_skill',$show->id)}}" class="h4 text-success"> <i class="ti-pencil"></i>تعديل </a>
                       <a class="h4 text-danger mr-2" type="submit" onclick="deletecontent({{ $show->id  }})">
-                          <i class="fas fa-trash-alt"></i>
+                          <i class="ti-trash"></i> حذف
                       </a>
                     <form id="delete-form-{{ $show->id  }}" 
                      action="{{ route('destroy_skill', $show->id)}}" method="get" style="display: none;">
@@ -85,8 +72,7 @@
                                       
                     </form>
 
-                    <a href="{{ route('edit_skill',$show->id)}}" class="h4 text-success"> <i class="fa fa-pencil-alt"></i> </a>
-                   </th>
+                  </th>
                   </tr>
                   @endforeach
                  
@@ -94,60 +80,31 @@
                  
                   
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Serial</th>
-                    <th>Skill_1</th>
-                    <th>Skill_1_Percentage</th>
-                    <th>Skill_2</th>
-                    <th>Skill_2_Percentage</th>
-                    <th>Skill_3</th>
-                    <th>Skill_3_Percentage</th>
-                    <th>Skill_4</th>
-                    <th>Skill_4_Percentage</th>
-                    <th>Skill_5</th>
-                    <th>Skill_5_Percentage</th>
-                    <th>Skill_6</th>
-                    <th>Skill_6_Percentage</th>
-                    <th>Create Date</th>
-                    <th>Update Date</th>
-                    <th>Action</th>
-            
-                  </tr>
-                  </tfoot>
+              
                 </table>
               </div>
               <!-- /.card-body -->
             </div>
+      </div>
+  </div>
+ </div>
             <!-- /.card -->
 @endsection
 
-@push('js')
+@section('js')
 <!-- DataTables  & Plugins -->
-<script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/pdfmake/vfs_fonts.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
  <script src="https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
     <script type="text/javascript">
         function deletecontent(id) {
             swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'هل انت متأكد ؟',
+                text: "",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel!',
+                confirmButtonText: 'نعم قم بالحذف!',
+                cancelButtonText: 'إلغاء',
                 confirmButtonClass: 'btn btn-success',
                 cancelButtonClass: 'btn btn-danger',
                 buttonsStyling: false,
@@ -190,4 +147,4 @@
 
 </script>
     
-@endpush
+@endsection

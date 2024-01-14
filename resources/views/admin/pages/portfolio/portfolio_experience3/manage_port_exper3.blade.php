@@ -116,14 +116,14 @@
     <script type="text/javascript">
         function deletecontent(id) {
             swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'هل انت متأكد ؟',
+                text: "",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel!',
+                confirmButtonText: 'نعم قم بالحذف!',
+                cancelButtonText: 'إلغاء',
                 confirmButtonClass: 'btn btn-success',
                 cancelButtonClass: 'btn btn-danger',
                 buttonsStyling: false,

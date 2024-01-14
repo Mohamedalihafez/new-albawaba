@@ -60,7 +60,7 @@
                     <label for="exampleInputEmail1">Date From Start To End</label>
                     <input type="text" name="dateFrom_startToend" class="form-control" id="exampleInputEmail1"
                      value="{{ $work_experience->dateFrom_startToend }}"  maxlength="30" required>
-                    <span class="help-block"><i class="fa fa-info-circle mr-xs"></i>Max characters set to 30 <strong>Like : APRIL 2013 - FEBRUARY 2014</strong></span>
+                    <span class="help-block"><i class="fa fa-info-circle mr-xs"></i> <strong>Like : APRIL 2013 - FEBRUARY 2014</strong></span>
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Short Description </label>

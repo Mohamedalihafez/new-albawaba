@@ -256,7 +256,7 @@ Route::group(['prefix' => 'slider'],function(){
 });
 
 Route::group(['prefix' => 'soclaiMedia'],function(){
-    Route::get('/create', [SocialMediaController::class, 'create'])->name('crate_socialMedia');
+    Route::get('/', [SocialMediaController::class, 'create'])->name('create_socialMedia');
     Route::post('/store', [SocialMediaController::class, 'store'])->name('store_socialMedia');
     Route::get('/show', [SocialMediaController::class, 'show'])->name('show_socialMedia');
     Route::get('/edit/{id}', [SocialMediaController::class, 'edit'])->name('edit_socialMedia');
@@ -265,22 +265,23 @@ Route::group(['prefix' => 'soclaiMedia'],function(){
 });
 //About 
 Route::group(['prefix' => 'about'],function(){
-    Route::get('/crate_about', [AboutController::class, 'create'])->name('crate_about');
+    Route::get('/', [AboutController::class, 'create'])->name('create_about');
     Route::post('/store_about', [AboutController::class, 'store'])->name('store_about');
     Route::get('/manage_about', [AboutController::class, 'index'])->name('manage_about');
     Route::get('/edit_about/{id}', [AboutController::class, 'edit'])->name('edit_about');
-    Route::get('/update_about/{id}', [AboutController::class, 'update'])->name('update_about');
+    Route::put('/update_about/{id}', [AboutController::class, 'update'])->name('update_about');
     Route::get('/destroy_about/{id}', [AboutController::class, 'destroy'])->name('destroy_about');
 });
 
 Route::group(['prefix' => 'skill'],function(){
-    Route::get('/crate_skill', [SkillController::class, 'create'])->name('crate_skill');
+    Route::get('/', [SkillController::class, 'create'])->name('crate_skill');
     Route::post('/store_skill', [SkillController::class, 'store'])->name('store_skill');
     Route::get('/manage_skill', [SkillController::class, 'index'])->name('manage_skill');
     Route::get('/edit_skill/{id}', [SkillController::class, 'edit'])->name('edit_skill');
     Route::put('/update_skill/{id}', [SkillController::class,'update'])->name('update_skill');
     Route::get('/destroy_skill/{id}', [SkillController::class, 'destroy'])->name('destroy_skill');
 });
+
 Route::group(['prefix' => '/portofolio1'],function(){
     Route::get('/crate_port_exp1', [Portfolio_experience1Controller::class, 'create'])->name('crate_port_exp1');
     Route::post('/store_port_exp1', [Portfolio_experience1Controller::class, 'store'])->name('store_port_exp1');

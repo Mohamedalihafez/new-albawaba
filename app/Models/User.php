@@ -185,4 +185,15 @@ class User extends Authenticatable
     {
         return  $this->belongsTo(Role::class, 'role_id');
     }
+
+    
+    public function slider()
+    {
+        return  $this->belongsTo(Slider::class, 'id' , 'user_id');
+    }
+
+    public function social()
+    {
+        return  $this->belongsTo(Social_media::class, 'id' , 'user_id');
+    }
 }

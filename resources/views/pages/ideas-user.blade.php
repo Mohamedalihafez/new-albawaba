@@ -12,20 +12,21 @@
       
       <div class="page-header-image" data-parallax="true" style="background-image: url('{{asset('assets/frontend/images/slider/'.$show->slider)}}')"></div>
       <div class="container">
-        <div class="content-center">
+        <div class="content-center profile-data">
           <div class="cc-profile-image"><a href="#"><img src="{{asset('assets/frontend/images/profile/'.$show->image)}}" alt="Image"/></a></div>
-          <div class="h2 title">{{ Str::upper($show->full_name) }}</div>
-          <p class="category text-white">{{ $show->experience }}</p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" href="{{asset('assets/frontend/images/cv/'.$show->cv)}}" data-aos="zoom-in" data-aos-anchor="data-aos-anchor" download>Download CV</a>
+          <div class="h2 title text-white">{{ Str::upper($show->full_name) }}</div>
+          <p class="category text-white mt-2">{{ $show->experience }}</p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">تواصل معي </a>
+          {{-- <a class="btn btn-primary" href="{{asset('assets/frontend/images/cv/'.$show->cv)}}" data-aos="zoom-in" data-aos-anchor="data-aos-anchor" download>Download CV</a> --}}
         </div>
       </div>
       <div class="section">
         <div class="container">
           @if ($social_media->count() != 0)
             @foreach ($social_media as $show )
-              <div class="button-container"><a class="btn btn-default btn-round btn-lg btn-icon" href="{{ $show->facebook }}" rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="{{ $show->twitter }}" rel="tooltip" title="Follow me on Twitter"><i class="fa fa-twitter"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="{{ $show->google }}" rel="tooltip" title="Follow me on Google+"><i class="fa fa-google-plus"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="{{ $show->intagram }}" rel="tooltip" title="Follow me on Instagram"><i class="fa fa-instagram"></i></a></div>
+              <div class="button-container social-buuton-profile"><a class="btn btn-default btn-round btn-lg btn-icon" href="{{ $show->facebook }}" rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="{{ $show->twitter }}" rel="tooltip" title="Follow me on Twitter"><i class="fa fa-twitter"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="{{ $show->google }}" rel="tooltip" title="Follow me on Google+"><i class="fa fa-snapchat"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="{{ $show->intagram }}" rel="tooltip" title="Follow me on Instagram"><i class="fa fa-instagram"></i></a></div>
             @endforeach
           @else
-               <div class="button-container"><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Twitter"><i class="fa fa-twitter"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Google+"><i class="fa fa-google-plus"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Instagram"><i class="fa fa-instagram"></i></a></div>
+               <div class="button-container social-buuton-profile"><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Facebook"><i class="fa fa-facebook"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Twitter"><i class="fa fa-twitter"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Google+"><i class="fa fa-snapchat"></i></a><a class="btn btn-default btn-round btn-lg btn-icon" href="#" rel="tooltip" title="Follow me on Instagram"><i class="fa fa-instagram"></i></a></div>
           @endif
        
         </div>
@@ -81,32 +82,32 @@
       <div class="row">
         <div class="col-lg-6 col-md-12">
           <div class="card-body">
-            <div class="h4 mt-0 title">About</div>
-             <p>{{ $show->short_about }}</p>
+            <div class="h4 mt-0 title">نبذه مختصره</div>
+             <p>{!! $show->short_about !!}</p>
      
           </div>
         </div>
         <div class="col-lg-6 col-md-12">
           <div class="card-body">
-            <div class="h4 mt-0 title">Basic Information</div>
+            <div class="h4 mt-0 title">معلومات أساسيه</div>
             <div class="row">
-              <div class="col-sm-4"><strong class="text-uppercase">Age:</strong></div>
+              <div class="col-sm-4"><strong class="text-uppercase">العمر:</strong></div>
               <div class="col-sm-8">{{ $show->age }}</div>
             </div>
             <div class="row mt-3">
-              <div class="col-sm-4"><strong class="text-uppercase">Email:</strong></div>
+              <div class="col-sm-4"><strong class="text-uppercase">البريد الالكتروني:</strong></div>
               <div class="col-sm-8">{{ $show->email }}</div>
             </div>
             <div class="row mt-3">
-              <div class="col-sm-4"><strong class="text-uppercase">Phone:</strong></div>
+              <div class="col-sm-4"><strong class="text-uppercase">الجوال:</strong></div>
               <div class="col-sm-8">{{ $show->phone }}</div>
             </div>
             <div class="row mt-3">
-              <div class="col-sm-4"><strong class="text-uppercase">Address:</strong></div>
+              <div class="col-sm-4"><strong class="text-uppercase">العنوان:</strong></div>
               <div class="col-sm-8">{{ $show->address }}</div>
             </div>
             <div class="row mt-3">
-              <div class="col-sm-4"><strong class="text-uppercase">Language:</strong></div>
+              <div class="col-sm-4"><strong class="text-uppercase">اللغات:</strong></div>
               <div class="col-sm-8">{{ $show->language }} </div>
             </div>
           </div>
@@ -158,7 +159,7 @@
 </div>
 <div class="section" id="skill">
   <div class="container">
-    <div class="h4 text-center mb-4 title">Professional Skills</div>
+    <div class="h4 text-center mb-4 title">مهارات احترافية</div>
     @if ($skill->count() != 0)
      @foreach ($skill as $show )
              <div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
@@ -272,7 +273,7 @@
   
   </div>
 </div>
-<div class="section" id="portfolio">
+{{-- <div class="section" id="portfolio">
   <div class="container">
     <div class="row">
       <div class="col-md-12 ml-auto mr-auto">
@@ -761,7 +762,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 
 @endsection
 

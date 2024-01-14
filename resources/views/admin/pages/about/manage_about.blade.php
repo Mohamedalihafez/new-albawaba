@@ -1,135 +1,100 @@
 @extends('admin.layout.master')
-@section('title')
-| manage about
-@endsection
-@push('css')
-<!-- DataTables -->
 
-  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-@endpush
-@section('Content_header')
- <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Manage About</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('home')}}">Home</a></li>
-              <li class="breadcrumb-item active">Manage About</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-@endsection
+
+
 @section('content')
- <!-- /.card -->
+    <div class="main-wrapper">
+        <div class="page-wrapper">
+            <div class="content container-fluid">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-sm-7 col-auto">
+                        <h3 class="page-title">معلومات اساسيه عنك  </h3>
+                    </div>
+                      @if(count($about) == 0)
+                        <div class="col-sm-5 col">
+                            <a href="{{ route('create_about') }}" class="btn btn-primary float-end ">  <i class="ti-plus"></i> قم بانشاء نبذة عنك   </a>
+                        </div>
+                      @endif
+                    </div>
+                </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>العمر</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>الجوال</th>
+                                    <th>العنوان</th>
+                                    <th>اللغات</th>
+                                    <th>نبذه قصيره</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title"></h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>Serial</th>
-                    <th>Age</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Language</th>
-                    <th>Short_About</th>
-                    <th>Create Date</th>
-                    <th>Update Date</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                 
-                  @foreach($about as $serial=>$show)
-                    <tr>
-                    <td>{{ $serial +1 }}</td>
-                    <td>{{$show->age}}</td>
-                    <td>{{$show->email}}</td>
-                    <td>{{$show->phone}}</td>
-                    <td>{{$show->address}}</td>
-                    <th>{{$show->language}}</th>
-                    <th>{{Str::limit($show->short_about, 50)}}</th>
-                    <td>{{$show->created_at->format('Y-m-d h:i:s')}}</td>
-                    <th>{{$show->updated_at->format('Y-m-d h:i:s')}}</th>
-                    <th> 
-                      <a class="h4 text-danger mr-2" type="submit" onclick="deletecontent({{ $show->id  }})">
-                          <i class="fas fa-trash-alt"></i>
-                      </a>
-                    <form id="delete-form-{{ $show->id  }}" 
-                     action="{{ route('destroy_about',$show->id)}}" method="get" style="display: none;">
-                      @csrf
-                                      
-                    </form>
+                                @foreach ($about as $serial => $show)
+                                    <tr>
+                                        <td>{{ $serial + 1 }}</td>
+                                        <td>{{ $show->age }}</td>
+                                        <td>{{ $show->email }}</td>
+                                        <td>{{ $show->phone }}</td>
+                                        <td>{{ $show->address }}</td>
+                                        <th>{{ $show->language }}</th>
+                                        <th>{!! Str::limit($show->short_about, 50) !!}</th>
 
-                    <a href="{{ route('edit_about',$show->id)}}" class="h4 text-success"> <i class="fa fa-pencil-alt"></i> </a>
-                   </th>
-                  </tr>
-                  @endforeach
-                 
-                 
-                 
-                  
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Serial</th>
-                    <th>Age</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Language</th>
-                    <th>Short_About</th>
-                    <th>Create Date</th>
-                    <th>Update Date</th>
-                    <th>Action</th>
-            
-                  </tr>
-                  </tfoot>
-                </table>
-              </div>
-              <!-- /.card-body -->
+                                        <th>
+                                          <a href="{{ route('edit_about', $show->id) }}" class="h4 text-success"> <i
+                                            class=" ti-pencil-alt"></i>  تعديل</a>
+
+                                            <a class="h4 text-danger mr-2" type="submit"
+                                                onclick="deletecontent({{ $show->id }})">
+                                                <i class=" ti-trash"></i>
+                                                حذف
+                                            </a>
+                                            <form id="delete-form-{{ $show->id }}"
+                                                action="{{ route('destroy_about', $show->id) }}" method="get"
+                                                style="display: none;">
+                                                @csrf
+
+                                            </form>
+
+                                          
+                                        </th>
+                                    </tr>
+                                @endforeach
+
+
+
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
             </div>
-            <!-- /.card -->
+        </div>
+    </div>
+    <!-- /.card -->
 @endsection
 
-@push('js')
-<!-- DataTables  & Plugins -->
-<script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/pdfmake/vfs_fonts.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('assets/backend/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
- <script src="https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
+@section('js')
+    <script src="https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
     <script type="text/javascript">
         function deletecontent(id) {
             swal({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'هل انت متأكد ؟',
+                text: "",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel!',
+                confirmButtonText: 'نعم قم بالحذف!',
+                cancelButtonText: 'إلغاء',
                 confirmButtonClass: 'btn btn-success',
                 cancelButtonClass: 'btn btn-danger',
                 buttonsStyling: false,
@@ -137,7 +102,7 @@
             }).then((result) => {
                 if (result.value) {
                     event.preventDefault();
-                    document.getElementById('delete-form-'+id).submit();
+                    document.getElementById('delete-form-' + id).submit();
                 } else if (
                     // Read more about handling dismissals
                     result.dismiss === swal.DismissReason.cancel
@@ -150,26 +115,24 @@
                 }
             })
         }
-   </script>
-<script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
-
-
-
-</script>
-    
-@endpush
+    </script>
+    <script>
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+@endsection

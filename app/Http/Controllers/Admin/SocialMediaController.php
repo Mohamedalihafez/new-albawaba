@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Toastr;
 use App\Models\Social_media ;
+use Illuminate\Support\Facades\Auth;
 
 class SocialMediaController extends Controller
 {
@@ -42,6 +43,8 @@ class SocialMediaController extends Controller
       $social_media->twitter = $request->twitter;
       $social_media->google = $request->google;
       $social_media->intagram = $request->intagram;
+      $social_media->user_id = Auth::user()->id;
+
       $save = $social_media->save();
       if($save){
       Toastr::success('Social Media create successfully', '', ["positionClass" => "toast-top-center"]);
@@ -61,7 +64,7 @@ class SocialMediaController extends Controller
      */
     public function show()
     {  
-        $social_media = Social_media::latest()->get();
+        $social_media = Social_media::latest()->where('user_id', Auth::user()->id)->get();
         return view('admin.pages.social_media.manage_socialMedia',compact('social_media'));
     }
 
@@ -91,6 +94,8 @@ class SocialMediaController extends Controller
         $social_media->twitter = $request->twitter;
         $social_media->google = $request->google;
         $social_media->intagram = $request->intagram;
+        $social_media->user_id = Auth::user()->id;
+
         $save = $social_media->save();
         if($save){
             Toastr::success('Social Media update successfully', 'ID'.'  '.$social_media->id, ["positionClass" => "toast-top-center"]);

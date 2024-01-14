@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Toastr;
 use App\Models\Skill;
+use Illuminate\Support\Facades\Auth;
 
 class SkillController extends Controller
 {
@@ -16,7 +17,8 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skill = Skill::latest()->get();
+        $skill = Skill::latest()->where('user_id', Auth::user()->id)->get();
+        
         return view('admin.pages.skill.manage_skill',compact('skill'));
     }
 
@@ -51,6 +53,8 @@ class SkillController extends Controller
         $skill->skill_5_percentage = $request->skill_5_percentage;
         $skill->skill_6 = $request->skill_6;
         $skill->skill_6_percentage = $request->skill_6_percentage;
+        $skill->user_id = Auth::user()->id;
+
         $save =  $skill->save();
         if($save){
             Toastr::success('Skill create successfully', '', ["positionClass" => "toast-top-center"]);
@@ -106,6 +110,8 @@ class SkillController extends Controller
        $skill->skill_5_percentage = $request->skill_5_percentage;
        $skill->skill_6 = $request->skill_6;
        $skill->skill_6_percentage = $request->skill_6_percentage;
+       $skill->user_id = Auth::user()->id;
+
        $save =  $skill->save();  
        if($save){
             Toastr::success('Skill update successfully', 'ID'.'  '. $skill->id, ["positionClass" => "toast-top-center"]);

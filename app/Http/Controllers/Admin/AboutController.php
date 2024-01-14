@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Toastr;
 use App\Models\About;
+use Illuminate\Support\Facades\Auth;
 
 class AboutController extends Controller
 {
@@ -16,7 +17,7 @@ class AboutController extends Controller
      */
     public function index()
     {
-      $about = About::latest()->get();
+      $about = About::latest()->where('user_id', Auth::user()->id)->get();
       return view('admin.pages.about.manage_about',compact('about'));
     }
 
@@ -45,6 +46,7 @@ class AboutController extends Controller
         $about->address = $request->address;
         $about->language = $request->language;
         $about->short_about = $request->short_about;
+        $about->user_id = Auth::user()->id;
         $save = $about->save();
         if($save){
             Toastr::success('About create successfully', '', ["positionClass" => "toast-top-center"]);
@@ -94,6 +96,8 @@ class AboutController extends Controller
        $about->address = $request->address;
        $about->language = $request->language;
        $about->short_about = $request->short_about;
+       $about->user_id = Auth::user()->id;
+
        $save = $about->save();
        if($save){
             Toastr::success('About update successfully', 'ID'.'  '. $about->id, ["positionClass" => "toast-top-center"]);

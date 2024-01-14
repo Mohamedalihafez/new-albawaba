@@ -28,7 +28,9 @@
         @else   
         <div class="section-title-ideas text-center position-relative pb-3 mb-5 mx-auto" style="max-width: 700px; display:block !important">
             <h2>   انشر أعمالك المتنوعة مثل مقالاتك أو اعمالك المصورة   </h2>
-            <a href="{{ route('ideas.add',['user' =>auth::user()->id])}}" class=" btn btn-third mt-1 "> <i class="fa fa-plus mr-3"> ابدأ بالنشر    </i></a>
+            <a href="{{ route('manage_slider')}}" class=" btn btn-third mt-1 "> <i class="fa fa-plus mr-3"> ابدأ بالنشر    </i></a> 
+
+            {{-- <a href="{{ route('ideas.add',['user' =>auth::user()->id])}}" class=" btn btn-third mt-1 "> <i class="fa fa-plus mr-3"> ابدأ بالنشر    </i></a> --}}
         </div>
         @endif
         <div class="row g-5 mb-5">
@@ -36,62 +38,32 @@
                 <div class="" data-wow-delay="0.1s">
                     <div class="undefined ">
                         <div class="_item_1a00s_173 row">
-                            <div class="col-md-4 mt-2">
-                                <div class="card profile-card-3">
-                                    <div class="background-block">
-                                        <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="profile-sample1" class="background"/>
-                                    </div>
-                                    <div class="profile-thumb-block">
-                                        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile-image" class="profile"/>
-                                    </div>
-                                    <div class="card-content">
-                                    <h2>Justin Mccoy<small>Designer</small></h3>
-                                    <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mt-2">
-                                <div class="card profile-card-3">
-                                    <div class="background-block">
-                                        <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="profile-sample1" class="background"/>
-                                    </div>
-                                    <div class="profile-thumb-block">
-                                        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile-image" class="profile"/>
-                                    </div>
-                                    <div class="card-content">
-                                    <h2>Justin Mccoy<small>Designer</small></h3>
-                                    <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
+                            @foreach ($users as $user ) 
+                             <a href="{{ route('ideas.add',['user' => $user->id])}}" class="  ">
+                                <div class="col-md-4 mt-2">
+                                    <div class="card profile-card-3">
+                                        <div class="background-block">
+                                            <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="profile-sample1" class="background"/>
+                                        </div>
+                                        <div class="profile-thumb-block">
+                                            <img  @if($user->slider ) src="{{asset('assets/frontend/images/profile/'.$user->slider->image)}}"  @endif alt="profile-image" class="profile"/>
+                                        </div>
+                                        <div class="card-content">
+                                        <h2>@if($user->slider ) {{$user->slider->full_name}} @endif<small>@if($user->slider ) {{$user->slider->experience}} @endif</small></h3>
+                                        @if($user->social)
+                                            <div class="icon-block">
+                                                <a href="{{ $user->social->facebook}}"><i class="fa fa-facebook"></i></a>
+                                                <a href="{{ $user->social->twitter}}"> <i class="fa fa-twitter"></i></a>
+                                                <a href="{{ $user->social->google}}"> <i class="fa fa-snapchat"></i></a>
+                                                <a href="{{ $user->social->intagram}}"> <i class="fa fa-instagram"></i></a>
+                                            </div>
+                                        @endif
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 mt-2">
-                                <div class="card profile-card-3">
-                                    <div class="background-block">
-                                        <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="profile-sample1" class="background"/>
-                                    </div>
-                                    <div class="profile-thumb-block">
-                                        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile-image" class="profile"/>
-                                    </div>
-                                    <div class="card-content">
-                                    <h2>Justin Mccoy<small>Designer</small></h3>
-                                    <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mt-2">
-                                <div class="card profile-card-3">
-                                    <div class="background-block">
-                                        <img src="https://images.pexels.com/photos/459225/pexels-photo-459225.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="profile-sample1" class="background"/>
-                                    </div>
-                                    <div class="profile-thumb-block">
-                                        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="profile-image" class="profile"/>
-                                    </div>
-                                    <div class="card-content">
-                                    <h2>Justin Mccoy<small>Designer</small></h3>
-                                    <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
-                                    </div>
-                                </div>
-                            </div>
+                            </a>
+
+                            @endforeach
                         </div>
                     </div>
                 </div>

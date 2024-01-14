@@ -15,18 +15,18 @@ return new class extends Migration
     {
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
-            $table->text('skill_1',25);
-            $table->integer('skill_1_percentage');
-            $table->text('skill_2',25);
-            $table->integer('skill_2_percentage');
-            $table->text('skill_3',25);
-            $table->integer('skill_3_percentage');
-            $table->text('skill_4',25);
-            $table->integer('skill_4_percentage');
-            $table->text('skill_5',25);
-            $table->integer('skill_5_percentage');
-            $table->text('skill_6',25);
-            $table->integer('skill_6_percentage');
+            $table->text('skill_1',25)->nullable();
+            $table->integer('skill_1_percentage')->nullable();
+            $table->text('skill_2',25)->nullable();
+            $table->integer('skill_2_percentage')->nullable();
+            $table->text('skill_3',25)->nullable();
+            $table->integer('skill_3_percentage')->nullable();
+            $table->text('skill_4',25)->nullable();
+            $table->integer('skill_4_percentage')->nullable();
+            $table->text('skill_5',25)->nullable();
+            $table->integer('skill_5_percentage')->nullable();
+            $table->text('skill_6',25)->nullable();
+            $table->integer('skill_6_percentage')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->timestamps();
         });

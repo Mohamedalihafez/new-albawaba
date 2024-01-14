@@ -102,9 +102,27 @@ position: relative!important;
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li><a href="{{ route('home') }}"><i class="ti-control-record text-success"></i> {{ __('pages.home') }}</a></li>
+                        @if(auth::user()->ideas_id == 1)
+                        <li>
+                            <a class="" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <i class="ti-arrow-down text-success"></i>  بيانات أفكار 
+                            </a>
+                            <div class="collapse sidebar-nav" id="collapseExample">
+                                <ul class="  flex-column">
+                                    {{-- Add additional items you want to show when collapsed --}}
+                                    <li><a href="{{ route('manage_slider') }}"><i class="ti-control-record text-success"></i>الغلاف الشخصي </a></li>
+                                    <li><a href="{{ route('show_socialMedia') }}"><i class="ti-control-record text-success"></i>روابط التواصل الاجتماعي   </a></li>
+                                    <li><a href="{{ route('manage_about') }}"><i class="ti-control-record text-success"></i>المعلومات الأساسية  عنك     </a></li>
+                                    <li><a href="{{ route('manage_skill') }}"><i class="ti-control-record text-success"></i>   مهاراتك     </a></li>
+
+                                    <!-- ... other items ... -->
+                                </ul>
+                            </div>
+                        </li>
+                        @endif
                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('setting.upsert') }}"><i class="ti-control-record text-success"></i> الإعدادات الرئيسيه</a></li>@endif
-                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('service') }}"><i class="ti-control-record text-success"></i> خدماتنا</a></li>@endif
-                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('user.request') }}"><i class="ti-control-record text-success"></i> طلبات المستخدمين</a></li>@endif
+                        @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('service') }}"><i class="ti-control-record text-success"></i> خدماتنا</a></li>@endif
+                        @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('user.request') }}"><i class="ti-control-record text-success"></i> طلبات المستخدمين</a></li>@endif
                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('user') }}"><i class="ti-control-record text-success"></i> {{ __('pages.users') }}</a></li>@endif
                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('region') }}"><i class="ti-control-record text-success"></i> {{ __('pages.regions') }}</a></li>@endif
                         @if(Auth::user()->isSuperAdmin())<li><a href="{{ route('city') }}"><i class="ti-control-record text-success"></i> {{ __('pages.cities') }}</a></li>@endif
